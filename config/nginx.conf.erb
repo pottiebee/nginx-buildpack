@@ -41,12 +41,13 @@ http {
                 proxy_pass https://pottiebee-ds.herokuapp.com/;
             }
 
-		location = /_oauth2_token_introspection {
-                internal;
-                proxy_method      GET;
-                proxy_set_header  Authorization "Bearer $token";
-                proxy_set_header  Content-Type "application/json";
-                proxy_pass        https://dev-7125930.okta.com/api/v1/users;
-            }
+		    location = /_oauth2_token_introspection {
+			internal;
+			proxy_method      POST;
+			proxy_set_header  Authorization "bearer SecretForOAuthServer";
+			proxy_set_header  Content-Type "application/x-www-form-urlencoded";
+			proxy_set_body    "token=$http_apikey&token_hint=access_token";
+			proxy_pass        https://idp.example.com/oauth/token;
+   		 }
 	}
 }

@@ -35,16 +35,18 @@ http {
 		server_name _;
 		keepalive_timeout 5;
 
+		
 		location / {
-			# Uncomment this if statement to force SSL/redirect http -> https
-			# if ($http_x_forwarded_proto != "https") {
-			#   return 301 https://$host$request_uri;
-			# }
+                auth_request /_oauth2_token_introspection;
+                proxy_pass https://pottiebee-ds.herokuapp.com/;
+            }
 
-			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-			proxy_set_header Host $http_host;
-			proxy_redirect off;
-			proxy_pass http://app_server;
-		}
+		location = /_oauth2_token_introspection {
+                internal;
+                proxy_method      GET;
+                proxy_set_header  Authorization "Bearer $token";
+                proxy_set_header  Content-Type "application/json";
+                proxy_pass        https://dev-7125930.okta.com/api/v1/users;
+            }
 	}
 }

@@ -35,6 +35,8 @@ http {
 		server_name _;
 		keepalive_timeout 5;
 
+		include auth_request;
+
 		
 		location / {
                 auth_request /_oauth2_token_introspection;

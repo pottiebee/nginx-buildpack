@@ -6,12 +6,12 @@ set -e
 unset GIT_DIR
 
 # parse and derive params
-BUILD_DIR=$1
+BUILD_DIR=my_nginx
 CACHE_DIR=$2
 BUILDPACK_DIR="$(dirname "$(dirname "$0")")"
 
 mkdir -p "$BUILD_DIR/bin/"
-mkdir -p "$BUILD_DIR/new/nginx"
+mkdir -p "$BUILD_DIR/nginx"
 tar -zxvf "nginx-$STACK".tgz -C "$BUILD_DIR/nginx"
 
 cp "$BUILD_DIR/nginx/nginx" "$BUILD_DIR/bin/nginx"

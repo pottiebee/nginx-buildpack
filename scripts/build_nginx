@@ -60,6 +60,7 @@ echo "Downloading $uuid4_url"
     --with-pcre=pcre-${PCRE_VERSION} \
     --with-zlib=zlib-${ZLIB_VERSION} \
     --with-http_gzip_static_module \
+    --with-http_auth_request_module \
     --with-http_realip_module \
     --with-http_ssl_module \
     --prefix=/tmp/nginx-debug \
